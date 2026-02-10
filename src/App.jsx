@@ -15,6 +15,23 @@ export default function App() {
 
   const fetchTasks = async () => {
     const data = await Task.list();
+    // >>> decode
+    const r13 = (str) => {
+      return str.replace(/[a-zA-Z]/g, (c) => {
+        return String.fromCharCode(
+          c.charCodeAt(0) + (c.toLowerCase() <= 'm' ? 13 : -13)
+        );
+      });
+    };
+    data.forEach((task) => {
+      try {
+        const plainTitle = decodeURIComponent(atob(r13(task.title)));
+        task.title = plainTitle;
+      } catch (err) {
+        console.warn(`Task ${task.id} invalide encoding!`);
+      }
+    });
+    // <<< decode
     setTasks(data);
     setIsLoading(false);
   };
@@ -26,7 +43,16 @@ export default function App() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!newTaskTitle.trim()) return;
-    await Task.create({ title: newTaskTitle.trim(), completed: false });
+    // >>> encode
+    const rot13 = (str) => {
+      return str.replace(/[a-zA-Z]/g, (c) => {
+        return String.fromCharCode(
+          c.charCodeAt(0) + (c.toLowerCase() <= 'm' ? 13 : -13)
+        );
+      });
+    };
+    await Task.create({ title: r13(btoa(encodeURIComponent(newTaskTitle.trim()))), completed: false });
+    // <<< encode
     setNewTaskTitle("");
     fetchTasks();
   };
