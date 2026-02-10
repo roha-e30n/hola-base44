@@ -1,6 +1,9 @@
 # Todo App
 
-A simple todo list app built with React and Base44 backend.
+A simple todo list app built with React and Base44 backend. 
+
+* https://github.com/orgs/base44/discussions/111
+* https://github.com/briguit/hola-base44
 
 ## Structure
 
