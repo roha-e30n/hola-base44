@@ -17,6 +17,32 @@ src/                  # Frontend code
 └── lib/              # Utilities
 ```
 
+## Quickstart
+
+Download as ZIP-file. 
+
+```bash
+npm install           # Install packages
+base44 login          # Authenticate
+base44 link           # Create new app
+```
+
+Set your new AppID
+
+* /base44/.app.jsonc
+* /src/api/base44Client.js
+
+```bash
+npm run build         # Build html, css, js
+base44 entities push  # Push entity schemas
+base44 deploy         # Deploy backend + hosting
+```
+
+Open Browser
+
+* https://app.base44.com/apps/{yourAppId}/editor/workspace/overview  - [x] require login to access
+* https://{yourAppURI}.base44.app/login - for login
+
 ## Development
 
 ```bash
