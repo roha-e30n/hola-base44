@@ -36,7 +36,7 @@ npm run dev
 
 ```bash
 base44 login          # Authenticate
-base44 login          # Create new app
+base44 link           # Create new app
 base44 entities push  # Push entity schemas
 base44 deploy         # Deploy backend + hosting
 ```
