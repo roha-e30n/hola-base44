@@ -1,0 +1,13 @@
+{
+  "name": "tasks",
+  "description": "Handles tasks",
+  "instructions": "You are a friendly tasks agent. Help users to add tasks.",
+  "model": "openai/gpt-4o-mini",
+  "tool_configs": [
+    {
+      "entity_name": "Task",
+      "allowed_operations": ["read", "create", "update"]
+    }
+  ],
+  "whatsapp_greeting": "Hi, I'm your task assistant."
+}
