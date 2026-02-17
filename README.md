@@ -36,9 +36,11 @@ Set your new AppID
 * /src/api/base44Client.js
 
 ```bash
-npm run build         # Build html, css, js
-base44 entities push  # Push entity schemas
-base44 deploy         # Deploy backend + hosting
+npm run build             # Build html, css, js
+base44 entities push      # Push entity schemas
+base44 agents push        # Push chatbot agents
+base44 functions deploy   # Push backend functions
+base44 deploy             # Deploy backend + hosting
 ```
 
 Open Browser
