@@ -3,7 +3,12 @@
 // Full-stack template with backend and client configuration.
 
 {
-  "name": "hola",
+  "name": "hola-base44",
+  "description":"https://github.com/roha-e30n/hola-base44/",
+
+  "entitiesDir": "./entities",
+  "functionsDir": "./functions",
+  "agentsDir": "./agents",
 
   // Site/hosting configuration for the client application
   // Docs: https://docs.base44.com/configuration/hosting
