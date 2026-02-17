@@ -25,9 +25,9 @@ src/                  # Frontend code
 Download as ZIP-file. 
 
 ```bash
-npm install           # Install packages
-base44 login          # Authenticate
-base44 link           # Create new app
+npm install               # Install packages
+base44 login              # Authenticate
+base44 link               # Create new app
 ```
 
 Set your new AppID
