@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>CSV Testdaten Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+        textarea {
+            width: 100%;
+            height: 150px;
+            margin-bottom: 20px;
+        }
+        input {
+            padding: 5px;
+            margin-right: 10px;
+        }
+        button {
+            padding: 8px 15px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<h2>CSV Testdaten Generator</h2>
+
+<label>Eingabe (created_by_id,created_by pro Zeile):</label>
+<textarea id="input">123456789012345678901234,you.user@gmail.com</textarea>
+
+<label>Anzahl Datensätze:</label><br>
+<input type="number" id="count" value="5" min="1">
+<button onclick="generate()">Generieren</button>
+
+<br><br>
+
+<label>Ausgabe:</label>
+<textarea id="output"></textarea>
+
+<script>
+function randomString(length) {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
+    for (let i = 0; i < length; i++) {
+        result += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return result;
+}
+
+function base64Encode(str) {
+    return btoa(str);
+}
+
+function rot13(str) {
+    return str.replace(/[a-zA-Z]/g, function(c) {
+        return String.fromCharCode(
+            (c <= "Z" ? 90 : 122) >= 
+            (c = c.charCodeAt(0) + 13) ? c : c - 26
+        );
+    });
+}
+
+function randomHex(bytes) {
+    let result = '';
+    for (let i = 0; i < bytes; i++) {
+        result += Math.floor(Math.random() * 256).toString(16).padStart(2, '0');
+    }
+    return result;
+}
+
+function randomTimestampLast12Months() {
+    const now = new Date();
+    const past = new Date();
+    past.setMonth(now.getMonth() - 12);
+
+    const randomTime = past.getTime() + Math.random() * (now.getTime() - past.getTime());
+    return new Date(randomTime).toISOString();
+}
+
+function generate() {
+    const input = document.getElementById("input").value.trim();
+    const count = parseInt(document.getElementById("count").value);
+    const output = document.getElementById("output");
+
+    if (!input) {
+        alert("Bitte Eingabedaten angeben.");
+        return;
+    }
+
+    const users = input.split("\n").map(line => line.trim()).filter(line => line.length > 0);
+
+    if (users.length === 0) {
+        alert("Keine gültigen Eingabedaten gefunden.");
+        return;
+    }
+
+    let csv = 'title,completed,id,created_date,updated_date,created_by_id,created_by,is_sample\n';
+
+    for (let i = 0; i < count; i++) {
+        const randomUser = users[Math.floor(Math.random() * users.length)];
+        const parts = randomUser.split(",");
+
+        if (parts.length < 2) continue;
+
+        const created_by_id = parts[0].trim();
+        const created_by = parts[1].trim();
+
+        const textLength = 20 + Math.floor(Math.random() * 11);
+        const randomText = randomString(textLength);
+        const title = rot13(base64Encode(randomText));
+
+        const id = randomHex(12);
+        const created_date = randomTimestampLast12Months();
+        const updated_date = created_date;
+
+        csv += `"${title}","false","${id}","${created_date}","${updated_date}","${created_by_id}","${created_by}","false"\n`;
+    }
+
+    output.value = csv;
+}
+</script>
+
+</body>
+</html>
