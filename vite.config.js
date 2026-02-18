@@ -4,13 +4,17 @@ import path from 'path';
 
 export default defineConfig({
   plugins: [react()],
+  publicDir: 'public',
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
     },
   },
-  'import.meta.env.VITE_BUILD_TIME': JSON.stringify(new Date().toISOString()),
+  define: {
+    'import.meta.env.VITE_BUILD_TIME': JSON.stringify(new Date().toISOString()),
+  },
   build: {
+    copyPublicDir: true,
     rollupOptions: {
       output: {
         entryFileNames: `assets/[name]-[hash]-${Date.now()}.js`,
